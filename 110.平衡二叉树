@@ -1,0 +1,25 @@
+    /**
+     * 功能描述: 110.平衡二叉树
+     * @Author: zxc
+     * @Date: 2020/9/30 20:37
+     * @descreption: 这题很明显用递归，但是要考虑清楚递归在哪里,并且你要算的函数是求什么的，并不是一味的返回值
+     *               就好比这道最后是用算出高度来计算出是否平衡的
+     */
+    //暴力解法
+    public boolean isBalanced(TreeNode root) {
+        //排除一开始就是空的结点的可能
+        if (null==root) return true;
+        //先是要计算出左右子树的高度差，判断本树的（其实最后的判断结果是通过计算出子树的高度差），
+        //再进行自顶向下的顺序，对每个结点进行判断
+        return Math.abs(height(root.right)-height(root.left))<=1 && isBalanced(root.left)&&isBalanced(root.right);
+    }
+    //用于计算结点高度出，这是利用了自顶向下的方法再剪枝
+    int height(TreeNode root){
+        //直到叶子结点的“子节点”，返回0，没有高度
+        if (root==null){
+            return 0;
+        }else {
+            //返回该树的高度，通过遍历每个子树
+            return Math.max(height(root.left),height(root.right))+1;
+        }
+    }
