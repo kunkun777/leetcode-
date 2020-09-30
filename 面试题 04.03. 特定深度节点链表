@@ -1,0 +1,44 @@
+        /**
+     * 功能描述: 面试题 04.03. 特定深度节点链表
+     * @Author: zxc
+     * @Date: 2020/9/30 20:37
+     * @descreption: 树的层次遍历套路，需要一个常用的re来存储各个元素，一个temp的list在存储其中的各个元素，
+     *               而元素是用来作为暂存的
+     */
+    public ListNode[] listOfDepth(TreeNode tree) {
+        //需要不断进出的队列
+        LinkedList<TreeNode> re=new LinkedList<>();
+        //添加第一个根元素，其实也就是第一个队列
+        re.add(tree);
+
+        //每个暂存队列
+        List<ListNode> tmp=new ArrayList<>();
+        //这是每个暂存结点
+        ListNode dummy=new ListNode(0);
+        while(!re.isEmpty()){
+            //计算出每个队列的长度
+            int len=re.size();
+            //作为遍历的游标,尾插法创建list
+            ListNode cur=dummy;
+            for (int i = 0; i <len; i++) {
+                //拿出第一个元素node指向
+                TreeNode node=re.remove();
+                //让游标的下一个指向新创的结点
+                cur.next=new ListNode(node.val);
+                if (node.left != null) {
+                    re.offer(node.left);
+                }
+                if (node.right != null) {
+                    re.offer(node.right);
+                }
+                cur = cur.next;
+            }
+            //到此就将所有的一轮结点并进去，且下一轮的结点都进队列了
+            //将该list归入re
+            tmp.add(dummy.next);
+            //将dummy清空，方便下轮循环
+            dummy.next=null;
+        }
+        //转型，list->[]
+        return tmp.toArray(new ListNode[] {});
+    }
