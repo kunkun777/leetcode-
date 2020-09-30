@@ -23,3 +23,27 @@
             return Math.max(height(root.left),height(root.right))+1;
         }
     }
+
+
+    //自底向顶，类似于简枝的算法，一旦发现有不合格的结点，就直接不断返回直到最初的root
+    public boolean isBalanced(TreeNode root) {
+        //这里是利用数字==-1作为唯一的标识，表示需要返回了
+        return  recue(root)!=-1;
+    }
+    
+    //正常的是返回高度
+    int recue(TreeNode root){
+        if (null==root){
+            return 0;
+        }
+        int l=recue(root.left);
+        //这里是返回的关键
+        if (l==-1){
+            return -1;
+        }
+        int r=recue(root.right);
+        if (r == -1) {
+            return -1;
+        }
+        return Math.max(l,r)<=1?Math.max(l,r)+1:-1;
+    }
