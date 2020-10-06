@@ -21,3 +21,27 @@
             }
         }
     }
+
+
+  /**
+     * 功能描述: 589. N叉树的前序遍历
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 再用非递归的迭代，迭代是什么样的
+     */
+    public List<Integer> preorder(Node root) {
+        List<Integer> re=new ArrayList<>();
+        List<Node> tmp=new LinkedList<>();
+        
+        if(root==null){
+            return re;
+        }
+        tmp.add(root);
+        while(!tmp.isEmpty()){
+            Node node=tmp.remove(tmp.size()-1);
+            re.add(node.val);
+            Collections.reverse(node.children);
+            tmp.addAll(node.children);
+        }
+        return re;
+    }
