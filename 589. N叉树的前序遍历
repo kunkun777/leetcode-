@@ -1,0 +1,23 @@
+        
+   /**
+     * 功能描述: 589. N叉树的前序遍历
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 先用递归调用 
+     */
+   public List<Integer> preorder(Node root) {
+        List<Integer> re=new ArrayList<>();
+        order(re,root);
+        return re;
+    }
+    void order(List<Integer> re,Node root){
+        if (root!=null){
+            re.add(root.val);
+            for (int i = 0; i < root.children.size() / 2; i++) {
+                order(re,root.children.remove(0));
+            }
+            while (!root.children.isEmpty()){
+                order(re,root.children.remove(0));
+            }
+        }
+    }
