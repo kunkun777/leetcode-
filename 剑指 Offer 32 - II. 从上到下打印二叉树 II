@@ -1,0 +1,32 @@
+    /**
+     * 功能描述: 剑指 Offer 32 - II. 从上到下打印二叉树 II(二叉树的层序遍历)
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 就是利用队列暂存每层的各个结点（从左到右）
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        //存储结果的
+        List<List<Integer>> re=new ArrayList<>();
+        //需要利用的队列
+        Queue<TreeNode> queue=new LinkedList<>();
+        //先把根节点存入队列
+        if (root!=null)queue.add(root);
+        //当所有层的结点都存入队列的时候并出队，queue就为空了
+        while (!queue.isEmpty()){
+            //计算出当前层数节点数目
+            int size=queue.size();
+            //用来暂存每层的结点数据
+            List<Integer> tmp=new ArrayList<>();
+            //
+            for (int i = 0; i < size; i++) {
+                TreeNode node=queue.poll();
+                //将该层的数据存入list
+                tmp.add(node.val);
+                //将下层的数据一个个结点的子节点存入
+                if (node.left!=null)queue.add(node.left);
+                if (node.right!=null)queue.add(node.right);
+            }
+            re.add(tmp);
+        }
+        return re;
+    }
