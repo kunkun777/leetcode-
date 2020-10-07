@@ -1,0 +1,54 @@
+   /**
+     * 功能描述: 897. 递增顺序查找树
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 先中序遍历所有结点
+     */
+    public TreeNode increasingBST(TreeNode root) {
+        List<TreeNode> re=new ArrayList<>();
+        order(re,root);
+        root=re.remove(0);
+        TreeNode cur=root;
+        //依次构造
+        while (!re.isEmpty()){
+            cur.left=null;
+            cur.right=re.remove(0);
+            cur=cur.right;
+        }
+        return root;
+    }
+    //中序遍历
+    void order(List<TreeNode> re,TreeNode node){
+        if (node!=null) {
+            order(re, node.left);
+            re.add(node);
+            order(re, node.right);
+        }
+    }
+    
+    
+       /**
+     * 功能描述: 897. 递增顺序查找树
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 一边中序遍历所有结点，一边进行相应的连接
+     */
+    private TreeNode re=new TreeNode(0);
+    public TreeNode increasingBST(TreeNode root) {
+        TreeNode node=re;
+        order(root);
+        return node.right;
+    }
+    //中序遍历
+    void order(TreeNode node){
+        if (node!=null){
+            order(node.left);
+            //直接在遍历的时候设置为null了
+            node.left=null;
+            //遍历到一个便连接一个点到re结点的下面
+            re.right=node;
+            //指向下一个连接点
+            re=re.right;
+            order(re.right);
+        }
+    }
