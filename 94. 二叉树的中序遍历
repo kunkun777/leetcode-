@@ -1,0 +1,17 @@
+  /**
+     * 功能描述: 94. 二叉树的中序遍历
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 简单递归
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> re=new ArrayList<>();
+        order(re,root);
+        return re;
+    }
+    void order(List<Integer> list,TreeNode root){
+        if (root==null) return;
+        order(list,root.left);
+        list.add(root.val);
+        order(list,root.right);
+    }
