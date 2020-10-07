@@ -30,3 +30,40 @@
         }
         return re;
     }
+   /**
+     * 功能描述: 94. 二叉树的中序遍历
+     * @Author: zxc
+     * @Date: 2020/10/6 12:46
+     * @Descreption: 利用栈，不断访问最左下的结点，如果直到了null的时候，就去推出栈，然后访问右侧结点，并且再重复该过程
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        //用于存放结果的集合
+        List<Integer> re=new ArrayList<>();
+        //如果根结点为null则直接返回
+        if (root==null)return re;
+        //需要利用的栈结构
+        Stack<TreeNode> stack=new Stack<>();
+        //先将根结点存入进去
+        stack.add(root);
+        //将游标结点指向栈顶元素先
+        TreeNode cur=root;
+        //直到栈不为空，也就是所有结点都要遍历一遍的意思
+        while (!stack.isEmpty()) {
+            //如果游标指向了空结点
+            if (cur==null){
+                //先将之前的结点出栈，
+                TreeNode node=stack.pop();
+                //将它加入结果集合
+                re.add(node.val);
+                //再让游标指向栈顶结点的右结点
+                cur=node.right;
+            }else {
+                //如果不为空的话，就将访问到的结点存入栈
+                stack.add(cur);
+                //再不断地访问左侧结点直到入栈
+                cur=cur.left;
+            }
+        }
+        re.remove(re.size()-1);
+        return re;
+    }
