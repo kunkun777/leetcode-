@@ -1,0 +1,61 @@
+/**
+     * 功能描述: 1530. 好叶子节点对的数量
+     * @Author: zxc
+     * @Date: 2020/10/8 14:08
+     * @Descreption: 其实对每个非叶子节点来说，叶子结点到左孩子+右孩子+2=距离
+     */
+    class Pair {
+        int[] depths;
+        int count;
+
+        public Pair(int[] depths, int count) {
+            this.depths = depths;
+            this.count = count;
+        }
+    }
+    public int countPairs(TreeNode root, int distance) {
+        //这是暂存需要的,一个数组，一个结果,depths[i] 表示与 P 之间的距离为 ii 的叶子节点数目
+        Pair pair = dfs(root, distance);
+        return pair.count;
+    }
+    public Pair dfs(TreeNode root, int distance) {
+        //用于存该结点下相关路径的
+        int[] depths = new int[distance + 1];
+        //判断是否是叶子结点
+        boolean isLeaf = root.left == null && root.right == null;
+        //如果是叶子结点，就直接返回相应的该结点的数目就好
+        if (isLeaf){
+            depths[0]=1;
+            return new Pair(depths,0);
+        }
+        //分别是左子树和右子树的结点数目存储的数组，用于产生depths的结果的
+        int[] leftDepths = new int[distance + 1];
+        int[] rightDepths = new int[distance + 1];
+        //分别
+        int leftCount = 0, rightCount = 0;
+        //如果该结点的左子树不为空，就统计出它的左子树的相应步数的数目
+        if (root.left != null) {
+            Pair leftPair = dfs(root.left, distance);
+            leftDepths = leftPair.depths;
+            leftCount = leftPair.count;
+        }
+        if (root.right != null) {
+            Pair rightPair = dfs(root.right, distance);
+            rightDepths = rightPair.depths;
+            rightCount = rightPair.count;
+        }
+        //利用左子树/右子树中的结点的步长相加，算出相应的长度
+        for (int i = 0; i < distance; i++) {
+            depths[i+1] +=leftDepths[i];
+            depths[i+1] +=rightDepths[i];
+        }
+
+        int cnt=0;
+        for (int i = 0; i < distance; i++) {
+            for (int j = 0; j +i+2<distance ; j++) {
+                cnt+=leftDepths[i]*rightDepths[j];
+            }
+        }
+        //返回的是左子树+右子树+本结点的可能性
+        return new Pair(depths, cnt + leftCount + rightCount);
+    }
