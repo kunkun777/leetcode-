@@ -1,0 +1,37 @@
+/**
+     * 功能描述: 1022. 从根到叶的二进制数之和
+     * @Author: zxc
+     * @Date: 2020/10/8 14:08
+     * @Descreption: 维护两个栈，分别存储结点/结点的值，依层次出栈，再添加下一层的元素，直到叶子结点就添加到最终结果上去
+     */
+    public int sumRootToLeaf(TreeNode root) {
+        int re=0;
+        //维护的两个栈
+        Queue<TreeNode> queueNode=new LinkedList<>();
+        Queue<Integer> queueVal=new LinkedList<>();
+        //在栈中添加头个元素
+        queueNode.add(root);
+        queueVal.add(root.val);
+        //直到栈非空
+        while (!queueNode.isEmpty()){
+            //首先将两个栈的轮次元素出栈
+            TreeNode node=queueNode.poll();
+            int tmp= Objects.requireNonNull(queueVal.poll()).byteValue();
+            //如果是叶子结点，就将部分结果+到最终结果上去
+            if (node.left==null&&node.right==null) {
+                re+=tmp;
+                continue;
+            }
+            //将下一结点的相应的值添加进去那个值是通过2进制解决的
+            if (node.left!=null){
+                queueNode.add(node.left);
+                queueVal.add(tmp<<1+node.left.val);
+            }
+            if (node.right!=null){
+                queueNode.add(node.right);
+                queueVal.add(tmp<<1+node.right.val);
+            }
+        }
+        //直接返回
+        return re;
+    }
