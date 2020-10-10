@@ -1,0 +1,40 @@
+       public String tree2str(TreeNode t) {
+        //如果根结点为null，则直接返回
+        if (t==null){
+            return "";
+        }
+        //需要利用的栈
+        Stack<TreeNode> stack=new Stack<>();
+        //将根元素入栈
+        stack.push(t);
+        //存取访问过的结点
+        Set<TreeNode> visited=new HashSet<>();
+        //存取最后的结果
+        StringBuilder s=new StringBuilder();
+        //知道栈非空
+        while (!stack.isEmpty()){
+            //栈顶元素获取到
+            t=stack.peek();
+            //如果visited包含其中的元素
+            if (visited.contains(t)){
+                //让栈退出该元素
+                stack.pop();
+                //结果值添加)，表示结束
+                s.append(")");
+            }else {
+                //访问过的结点添加
+                visited.add(t);
+                s.append("("+t.val);
+                if (t.left==null&&t.right!=null){
+                    s.append("()");
+                }
+                if (t.right!=null){
+                    stack.push(t.right);
+                }
+                if (t.left!=null){
+                    stack.push(t.left);
+                }
+            }
+        }
+        return s.substring(1,s.length()-1);
+    }
