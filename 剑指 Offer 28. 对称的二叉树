@@ -1,0 +1,14 @@
+    public boolean isSymmetric(TreeNode root) {
+        if (root==null){
+            return true;
+        }
+        return recur(root.left,root.right);
+    }
+    boolean recur(TreeNode left,TreeNode right){
+        //左右两个结点都为Null
+        if(left == null && right == null) return true;
+        //单侧的结点为Null,或者一侧的结点数不相等
+        if(left == null || right == null || left.val != right.val) return false;
+        //继续判断下一层
+        return recur(left.left, right.right) && recur(left.right, right.left);
+    }
