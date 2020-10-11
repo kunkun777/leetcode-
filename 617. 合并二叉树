@@ -1,0 +1,27 @@
+    /**
+     * 功能描述: 617. 合并二叉树
+     * @Author: zxc
+     * @Date: 2020/10/8 14:08
+     * @Descreption: 利用中序遍历，唯一优化的地方就是，如果某点一方为空/一方非空，就直接返回相应的结点
+     */
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        return order(t1,t2);
+    }
+
+    TreeNode order(TreeNode t1, TreeNode t2){
+        //一方为空就返回另一方，如果都为空直接为null
+        if (t1 == null) {
+            return t2;
+        }
+        if (t2 == null) {
+            return t1;
+        }
+        //两方都为非空，就将两者相加
+        TreeNode re=new TreeNode(t1.val+t2.val);
+        //对两者的结点进行递归方法的调用
+        re.right=order(t1.left,t2.left);
+        order(t1.right,t2.right);
+        //返回小树的根结点
+        return re;
+    }
+    public st
