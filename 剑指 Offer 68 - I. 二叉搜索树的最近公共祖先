@@ -27,3 +27,17 @@
         //递归调用，动态规划，其实也是，对子结点进行 判断
         return (root.right==target||root.left==target)||isHave(root.right,target)||isHave(root.left,target)||root==target;
     }
+
+
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        while (root!=null){
+            if (root.val<Math.min(p.val,q.val)){
+                root=root.left;
+            }else if (root.val>Math.max(p.val,q.val)){
+                root=root.right;
+            }else {
+                break;
+            }
+        }
+        return root;
+    }
