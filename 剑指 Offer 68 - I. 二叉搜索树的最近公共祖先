@@ -1,0 +1,29 @@
+/**
+     * 功能描述: 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先
+     * @Author: zxc
+     * @Date: 2020/10/12 8:57
+     * @Descreption: 题目条件没利用（二叉搜索树）,利用BFS,先序遍历每个结点，然后利用isHave函数进行判断，ishave函数也是利用深度遍历每个结点并没有做剪枝
+     */
+    TreeNode re;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        return order(root,p,q);
+    }
+    //先序遍历每个结点
+    TreeNode order(TreeNode root,TreeNode p,TreeNode q){
+        if (root !=null){
+            //判断这个结点是否是公共结点以及以上的结点，如果是的话就需要更新最小的
+            if (isHave(root,p)&&isHave(root,q)){
+                re=root;
+            }
+            order(root.left,p,q);
+            order(root.right,p,q);
+        }
+        return re;
+    }
+    //判断该结点是否含有目标结点
+    boolean isHave(TreeNode root,TreeNode target){
+        //直到null结点进行回溯
+        if (root==null)return false;
+        //递归调用，动态规划，其实也是，对子结点进行 判断
+        return (root.right==target||root.left==target)||isHave(root.right,target)||isHave(root.left,target)||root==target;
+    }
