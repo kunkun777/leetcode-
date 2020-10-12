@@ -32,3 +32,30 @@
         }
         return root;
     }
+
+
+/**
+     * 功能描述: 226. 翻转二叉树
+     * @Author: zxc
+     * @Date: 2020/10/12 8:57
+     * @Descreption: 利用BFS，依次结点进行翻转
+     */
+    public TreeNode invertTree(TreeNode root) {
+        if (root==null) return null;
+        //进行反转
+        reserve(root);
+        return root;
+    }
+    
+    void reserve(TreeNode root){
+        //如果为null是可以直接返回的
+        if (root!=null){
+            //进行反转
+            TreeNode tmp=root.left;
+            root.left=root.right;
+            root.right=tmp;
+            //对左右结点进行递归调用
+            reserve(root.left);
+            reserve(root.right);
+        }
+    }
