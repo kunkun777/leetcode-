@@ -1,0 +1,43 @@
+/**
+     * 功能描述: 530. 二叉搜索树的最小绝对差
+     * @Author: zxc
+     * @Date: 2020/10/12 13:57
+     * @Descreption: 因为是二叉搜索树，所以对每个结点来说，它的对它以及子节点 的最小值
+     *               只有和右子树的最小值（最左下），以及左子树的最大值（最右下角）
+     */
+    int min=Integer.MAX_VALUE;
+    public int getMinimumDifference(TreeNode root) {
+        if (root!=null){
+            //对每个结点进行判断，如果左右子树结点存在
+            if (root.left!=null){
+                //寻找出左子树的最大结点，并与现存的暂存值进行比较
+                int tmp=Math.abs(root.val-getMax(root.left).val);
+                min=Math.min(tmp,min);
+            }
+            //与上同理
+            if (root.right!=null){
+                int tmp=Math.abs(root.val-getMin(root.right).val);
+                min=Math.min(tmp,min);
+            }
+            //进行BFS,递归
+            getMinimumDifference(root.left);
+            getMinimumDifference(root.right);
+        }
+        return min;
+    }
+    //找到二叉搜索树的该结点下的最大值
+    TreeNode getMax(TreeNode root){
+        //一直寻找最右下角的结点
+        while (root.right!=null){
+            root=root.right;
+        }
+        return root;
+    }
+    //找到二叉搜索树的该结点下的最小值
+    TreeNode getMin(TreeNode root){
+        //一直寻找最左下角的结点
+        while (root.left!=null){
+            root=root.left;
+        }
+        return root;
+    }
