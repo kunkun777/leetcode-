@@ -1,0 +1,11 @@
+/**
+     * 功能描述: 100.相同的树
+     * @Author: zxc
+     * @Date: 2020/10/12 13:57
+     * @Descreption: 通过遍历来进行比较，递归调用该方法来进行子节点的判断（个人一直认为这和动态规      *               划是有极大程度的相似之处），一旦进行比较不匹配之后就可以进行回溯（类剪枝）
+     */
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+      //先进行判断是否是2者都为空，这是遍历到叶子结点的时候
+      //如果2者都不为空，则先判断这2结点的值是否相等，如果相等就再比较相应的结点（通过递归调用）
+        return (p==null&&q==null)||((p!=null&&q!=null)&&p.val == q.val && (isSameTree(p.left, q.left) && isSameTree(p.right, q.right)));
+    }
