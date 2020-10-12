@@ -1,0 +1,39 @@
+   
+  /**
+     * 功能描述: 剑指 Offer 55 - I. 二叉树的深度
+     * @Author: zxc
+     * @Date: 2020/10/12 8:57
+     * @Descreption: 利用BFS，不同的是，每次利用的队列都需要创建，为了进行层次的+1
+     */
+  public int maxDepth(TreeNode root) {
+        //如果根结点为null的话，就直接返回0
+        if(root == null) return 0;
+        //创建相应的结点队列，并将相应的头结点加入
+        List<TreeNode> queue = new LinkedList<TreeNode>() {{ add(root); }}, tmp;
+        //用于记录层次
+        int res = 0;
+        while(!queue.isEmpty()) {
+            //用于创建下一层的结点队列
+            tmp = new LinkedList<>();
+            for(TreeNode node : queue) {
+                if(node.left != null) tmp.add(node.left);
+                if(node.right != null) tmp.add(node.right);
+            }
+            //每次代替相应的结点队列
+            queue = tmp;
+            //层次+1
+            res++;
+        }
+        return res;
+    }
+    
+    //利用递归
+    public int maxDepth(TreeNode root) {
+        return height(root);
+    }
+    int height(TreeNode root){
+        if (root==null){
+            return 0;
+        }
+        return Math.max(height(root.left),height(root.right))+1;
+    }
