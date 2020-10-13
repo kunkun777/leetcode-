@@ -1,0 +1,22 @@
+/**
+     * 功能描述: #965单值二叉树
+     * @Author: zxc
+     * @Date: 2020/10/13 8:11
+     * @Descreption: 利用BFS,判断每个结点的子节点的值是否和根结点是否相等，其实这里做了多一层判断（有可能进行省略）
+     */
+    public boolean isUnivalTree(TreeNode root) {
+        //如果root根结点是否为空
+        if (root!=null){
+            //如果左右结点是否为空，非空就进行判断
+            boolean l=true,r=true;
+            if (root.left!=null){
+                l=root.val==root.left.val;
+            }
+            if (root.right!=null){
+                r=root.val==root.right.val;
+            }
+            //进行递归调用
+            return r&&l&&isUnivalTree(root.right)&&isUnivalTree(root.left);
+        }
+        return true;
+    }
