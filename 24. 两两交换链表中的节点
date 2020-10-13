@@ -1,0 +1,32 @@
+/**
+     * 功能描述: 24. 两两交换链表中的节点
+     * @Author: zxc
+     * @Date: 2020/10/13 8:11
+     * @Descreption: 利用三个指针分别swap后2个指针的位置
+     */
+    public ListNode swapPairs(ListNode head) {
+        //方便用于返回最后结点的位置
+        ListNode re=new ListNode(0);
+        //进行初始的设置
+        re.next=head;
+        ListNode left=re;
+        ListNode mid=left.next;
+        if (head==null)return null;
+        ListNode right=mid.next;
+        //当最右指针不为空的时候
+        while (right!=null){
+            //进行后2个指针的交换
+            left.next=right;
+            mid.next=right.next;
+            right.next=mid;
+
+            //进行后一次指针的设置
+            left=mid;
+            mid=left.next;
+            if (mid!=null)
+                right=mid.next;
+            else right = null;
+        }
+        //返回最后的结果
+        return re.next;
+    }
