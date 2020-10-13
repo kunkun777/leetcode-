@@ -1,0 +1,23 @@
+/**
+     * 功能描述: 669. 修剪二叉搜索树
+     * @Author: zxc
+     * @Date: 2020/10/13 9:45
+     * @Descreption: 利用BFS,深度遍历每个结点，而且是由于结点的是从底层开始遍历的，所以对每个结点是先进行相应的节点的删除
+     *               是从最子节点进行的，而且一般一次都是只删除很少的部分，一次遍历
+     */
+    public TreeNode trimBST(TreeNode root, int low, int high) {
+        if (root!=null) {
+            //先进行子树的剪枝
+            root.left=trimBST(root.left,low,high);
+            root.right=trimBST(root.right,low,high);
+            //当根结点不为空，并且根结点的值是大于规定的最大值的时候，将根结点向左移
+            while (root != null && root.val > high) {
+                root = root.left;
+            }
+            //当根结点不为空，并且根结点的值小于规定的最小值的时候，将根结点进行右移
+            while (root != null && root.val < low) {
+                root = root.right;
+            }
+        }
+        return root;
+    }
