@@ -30,3 +30,23 @@
         //返回最后的结果
         return re.next;
     }
+/**
+     * 功能描述: 24. 两两交换链表中的节点
+     * @Author: zxc
+     * @Date: 2020/10/13 8:11
+     * @Descreption: 利用递归调用，方便进行判断
+     */
+    public ListNode swapPairs(ListNode head) {
+        //先排除2种可以直接返回的情况
+        if (head == null || head.next == null) {
+            return head;
+        }
+        //让一个对象指向 需要交换的2结点种的后一个结点
+        ListNode newHead = head.next;
+        //让该结点指向后面结点交互后的前结点
+        head.next = swapPairs(newHead.next);
+        //让该结点形成链式
+        newHead.next = head;
+        //返回交互后2结点的前结点
+        return newHead;
+    }
