@@ -1,0 +1,23 @@
+/**
+     * 功能描述: 404. 左叶子之和
+     * @Author: zxc
+     * @Date: 2020/10/13 8:11
+     * @Descreption: 利用BFS,然后递归调用的方法，只是添加了方法，判断进行到的结点是否是叶子结点是的话就添加入结果
+     */
+    int count=0;
+    public int sumOfLeftLeaves(TreeNode root) {
+        order(root);
+        return count;
+    }
+    void order(TreeNode root){
+        if (root!=null){
+            //如果是左叶子结点就添加进去
+            if (isLeaf(root.left))count+=root.left.val;
+            order(root.left);
+            order(root.right);
+        }
+    }
+    boolean isLeaf(TreeNode root){
+        //判断结点不为空，并且是左叶子结点
+        return  root!=null&&root.left==null&&root.right==null;
+    }
