@@ -1,0 +1,38 @@
+    /**
+     * 功能描述: 783. 二叉搜索树节点最小距离
+     * @Author: zxc
+     * @Date: 2020/10/13 9:45
+     * @Descreption: BFS,对每个结点都进行一次子树的遍历（相当于是对每个结点的可能性进行考量），做了2次的深度遍历
+     *               在原来的基础上，对遍历到的结点再进行一次深度遍历
+     */
+
+    //返回的结果
+    int min=Integer.MAX_VALUE;
+    public int minDiffInBST(TreeNode root) {
+        //开始深度遍历
+        order(root);
+        return min;
+    }
+    //第一轮的BFS
+    void order(TreeNode root){
+        if (root!=null){
+            //判断该结点和之后结点的值是否和min小，是则替换它
+            getMin(root, root.left);
+            getMin(root, root.right);
+            //进行递归调用
+            order(root.left);
+            order(root.right);
+        }
+    }
+    //在原来的基础上，再进行一次BFS
+    void getMin(TreeNode root,TreeNode cur){
+        //进行是否修改值的判定
+        if (cur!=null&&Math.abs(root.val - cur.val) < min){
+            min = Math.abs(root.val - cur.val);
+        }
+        //二次BFS
+        if (cur!=null) {
+            getMin(root, cur.left);
+            getMin(root, cur.right);
+        }
+    }
