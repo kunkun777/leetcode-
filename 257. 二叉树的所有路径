@@ -1,0 +1,29 @@
+  /**
+     * 功能描述: 257. 二叉树的所有路径
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: DFS.利用深度遍历的特性，它是往下的，所以它是相关的结点都直接入队
+     */
+    List<String> re=new ArrayList<>();
+    public List<String> binaryTreePaths(TreeNode root) {
+        StringBuilder s=new StringBuilder("");
+        order(root,s);
+        return re;
+    }
+    void order(TreeNode root,StringBuilder s){
+        if (root!=null){
+            //常见新的本地变量作为路径
+            StringBuilder n=new StringBuilder(s);
+            //到叶子结点就将字符串添加到末尾
+            if (root.left==null&&root.right==null){
+                n.append(root.val);
+                //添加到解集中
+                re.add(n.toString());
+            }else{
+                //如果不是最后的结点还需遍历相应子节点
+                n.append(root.val).append("->");
+                if (root.left!=null)order(root.left,n);
+                if (root.right!=null)order(root.right,n);
+            }
+        }
+    }
