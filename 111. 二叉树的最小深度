@@ -1,0 +1,52 @@
+/**
+     * 功能描述: 111. 二叉树的最小深度
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: BFS,利用队列进行相应的记录，并每层递加num，如果遇到叶子则返回相应的结果值
+     */
+    public int minDepth(TreeNode root) {
+        //如果root一开始为Null
+        if (root==null) return 0;
+        //暂存结果的队列
+        Queue<TreeNode> queue=new LinkedList<>();
+        //入队头结点
+        queue.offer(root);
+        //记录的结果值
+        int num=1;
+        //直到队列非空
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            //将一层中的结点全部出队
+            for (int i = 0; i < size; i++) {
+                TreeNode node=queue.poll();
+                //终止的条件
+                if (node.left==null&&node.right==null)return num;
+                //将下层的结点入队
+                if (node.left!=null)queue.offer(node.left);
+                if (node.right!=null)queue.offer(node.right);
+            }
+            //层次加一
+            num++;
+        }
+        return num;
+    }
+    
+    
+    
+    /**
+     * 功能描述: 111. 二叉树的最小深度
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: DFS，利用判断递归调用，
+     */
+    public int minDepth(TreeNode root) {
+        if (root!=null){
+            //如果左子树/右子树为Null, 则直接返回底层的深度1
+            if (root.left==null&&root.right==null) return 1;
+            //分别判断相应的，结点情况，如果是相应的左右结点
+            else if (root.left==null) return minDepth(root.right)+1;
+            else if (root.right==null) return minDepth(root.left)+1;
+            else return Math.min(minDepth(root.right),minDepth(root.left))+1;
+        }
+        return 0;
+    }
