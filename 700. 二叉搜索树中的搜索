@@ -1,0 +1,22 @@
+/**
+     * 功能描述: 700. 二叉搜索树中的搜索
+     * @Author: zxc
+     * @Date: 2020/10/13 9:45
+     * @Descreption: BFS,利用递归调用，将每次的值进行比较
+     */
+    public TreeNode searchBST(TreeNode root, int val) {
+        //要返回的结果
+        TreeNode re=null;
+        //如果结点不为null
+        if (root!=null){
+            //如果找到该结点则直接返回
+            if (root.val==val){
+                return root;
+            }
+            //进行相应的判断，对结点
+            re=searchBST(root.left,val);
+            //如果左节点不满足Null
+            return re!=null?re:searchBST(root.right,val);
+        }
+        return root;
+    }
