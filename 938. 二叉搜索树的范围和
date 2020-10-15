@@ -1,0 +1,43 @@
+    /**
+     * 功能描述: 938. 二叉搜索树的范围和
+     * @Author: zxc
+     * @Date: 2020/10/13 9:45
+     * @Descreption: BFS,利用递归调用，对每个结点都要进行相应的递归，但是要进行判断是否加上那个val值 ，未进行剪枝所以时空复杂度都为O(n)
+     */
+    public int rangeSumBST(TreeNode root, int L, int R) {
+        //如果结点非空，并且属于是相应范围内的
+        if (root!=null){
+            //如果是叶子结点，则返回相应的加上相应的值并进行递归
+            if (root.val>=L&&root.val<=R){
+                return rangeSumBST(root.left,L,R)+rangeSumBST(root.right,L,R)+root.val;
+            }else
+                //如果是非叶子结点的，则进行BFS
+                return rangeSumBST(root.left,L,R)+rangeSumBST(root.right,L,R);
+        }
+        return 0;
+    }
+
+
+    /**
+     * 功能描述: 938. 二叉搜索树的范围和
+     * @Author: zxc
+     * @Date: 2020/10/13 9:45
+     * @Descreption: BFS,利用递归调用，对每个结点都要进行相应的递归，但是要进行判断是否加上那个val值 ，进行剪枝了
+     */
+public int rangeSumBST(TreeNode root, int L, int R) {
+        //如果结点非空，并且属于是相应范围内的
+        if (root!=null){
+            //如果是叶子结点，则返回相应的加上相应的值并进行递归
+            if (root.val>=L&&root.val<=R){
+                return rangeSumBST(root.left,L,R)+rangeSumBST(root.right,L,R)+root.val;
+            }else if(root.val<L){
+                //进行了剪左枝
+                //如果是非叶子结点的，则进行BFS
+                return rangeSumBST(root.right,L,R);
+            }else {
+                //进行了剪右枝
+                return rangeSumBST(root.left,L,R);
+            }
+        }
+        return 0;
+    }
