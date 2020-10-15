@@ -1,0 +1,24 @@
+/**
+     * 功能描述: 872. 叶子相似的树
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: DFS，利用中序遍历分别遍历两棵树，获取最后一层结点的先后顺序存入list中，来进行相关的比较
+     */
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        //暂存结果的
+        List<Integer> list1=new ArrayList<>();
+        List<Integer> list2=new ArrayList<>();
+        //求得相关的遍历结点
+        order(root1,list1);
+        order(root2,list2);
+        return list1.equals(list2);
+    }
+    void order(TreeNode root,List<Integer> list){
+        if (root!=null){
+            order(root.left,list);
+            if (root.left==null&&root.right==null){
+                list.add(root.val);
+            }
+            order(root.right,list);
+        }
+    }
