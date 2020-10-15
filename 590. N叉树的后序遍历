@@ -1,0 +1,21 @@
+/**
+     * 功能描述: 590. N叉树的后序遍历
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: DFS，利用判断递归调用，
+     */
+    List<Integer> re=new ArrayList<>();
+    public List<Integer> postorder(Node root) {
+        order(root);
+        re.add(root.val);
+        return re;
+    }
+    void order(Node root){
+        if (root!=null){
+            while (!root.children.isEmpty()){
+                Node node=root.children.remove(0);
+                postorder(node);
+                re.add(node.val);
+            }
+        }
+    }
