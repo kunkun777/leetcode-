@@ -1,0 +1,26 @@
+/**
+     * 功能描述: 563. 二叉树的坡度
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: DFS,中序遍历然后利用函数，遍历各个结点的子节点，计算出结点之和，然后计算处中序遍历到的结点的坡度
+     */
+    int re=0;
+    public int findTilt(TreeNode root) {
+        s(root);
+        return re;
+    }
+
+    void s(TreeNode root){
+        if (root!=null){
+            s(root.left);
+            re+=Math.abs(order(root.left)-order(root.right));
+            s(root.right);
+        }
+    }
+
+    int order(TreeNode root){
+        if (root!=null){
+            return order(root.left)+order(root.right)+root.val;
+        }
+        return 0;
+    }
