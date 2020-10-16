@@ -1,0 +1,47 @@
+/**
+     * 功能描述: 面试题 17.12. BiNode
+     * @Author: zxc
+     * @Date: 2020/10/15 10:49
+     * @Descreption: DFS,利用二叉搜索树的中序遍历是升序排列，排序完后，依次进行调整指向
+     */
+    List<TreeNode> nodes=new ArrayList<>();
+    public TreeNode convertBiNode(TreeNode root) {
+        order(root);
+        //将升序后的结点的执行进行改变
+        for (int i = 0; i < nodes.size()-1; i++) {
+            nodes.get(i).left=null;
+            nodes.get(i).right=nodes.get(i+1);
+        }
+        nodes.get(nodes.size()-1).left=null;
+        nodes.get(nodes.size()-1).right=null;
+        return nodes.get(0);
+    }
+    //中序遍历，并将相应的结点放入list中，并进行后续的改变
+    void order(TreeNode root){
+        if (root!=null){
+            order(root.left);
+            nodes.add(root);
+            order(root.right);
+        }
+    }
+
+    TreeNode head = new TreeNode(-1);   // 为了返回单向链表的头节点而多设的一个节点
+    TreeNode perv = null;
+    public TreeNode convertBiNode(TreeNode root) {
+        order(root);
+        return head.right;
+    }
+    //中序遍历，并将相应的结点放入list中，并进行后续的改变
+    void order(TreeNode root){
+        if (root!=null){
+            order(root.left);
+            if (perv==null){
+                perv=root;
+                head.right=root;
+            }else {
+                perv.right=root;
+                perv=root;
+            }
+            order(root.right);
+        }
+    }
