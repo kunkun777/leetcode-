@@ -1,0 +1,24 @@
+/**
+     * 功能描述: 108. 将有序数组转换为二叉搜索树
+     * @Author: zxc
+     * @Date: 2020/10/17 14:01
+     * @Descreption: 中序遍历，因为二叉搜索树的中序遍历是升序的,所以可以递归调用
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        //开始进行递归调用
+        return order(nums,0,nums.length-1);
+    }
+
+    TreeNode order(int[] nums,int l,int r){
+        //如果l>r 则返回null结点
+        if (l>r) return null;
+        //mid是中间的根结点
+        int mid=(l+r)/2;
+
+        //新建根结点
+        TreeNode node=new TreeNode(nums[mid]);
+        //根结点的左节点进行相关的递归调用
+        node.left=order(nums,l,mid-1);
+        node.right=order(nums,mid+1,r);
+        return node;
+    }
