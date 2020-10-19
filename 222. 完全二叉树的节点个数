@@ -1,0 +1,16 @@
+    /**
+     * 功能描述: 222. 完全二叉树的节点个数
+     * @Author: zxc
+     * @Date: 2020/10/19 10:12
+     * @Descreption: BFS，利用递归调用没每个子树下的结点个数，直到叶子结点 
+     */
+    public int countNodes(TreeNode root) {
+            return order(root);
+    }
+    int order(TreeNode root){
+        if(root!=null){
+            //该树的节点数=子树的节点数之和+1
+            return order(root.left)+order(root.right)+1;
+        }
+        return 0;
+    }
