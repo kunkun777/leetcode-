@@ -14,3 +14,33 @@
         }
         return 0;
     }
+/**
+     * 功能描述: 222. 完全二叉树的节点个数
+     * @Author: zxc
+     * @Date: 2020/10/19 10:12
+     * @Descreption: 利用完全二叉树的特点，最后一层靠左满，所以我们针对其中一个结点要计算
+     *               它的结点数量的话，只需要判断左子树的深度和右子树的深度是否相等即可，
+     *               相等的话，那么就证明，那个底层的边界就在右子树，左子树是满的，计算出来为2^n-1+1，
+     *               所以右子树就继续递归调用该方法就可；
+     *               如果不等的话，针对边界在左子树那边，所以需要递归调用对象变为左子树即可
+     */
+    public int countNodes(TreeNode root) {
+        //如果
+        if (root==null)  return 0;
+        int left=countLevel(root.left);
+        int right=countLevel(root.right);
+        if (left==right){
+            return (int) Math.pow(2,left)+countNodes(root.right);
+        }else return (int) (countNodes(root.left)+Math.pow(2,right));
+    }
+    int countLevel(TreeNode root){
+        int level=0;
+        if (root!=null){
+            while (root!=null){
+                root=root.left;
+                level++;
+            }
+        }
+        return level;
+    }
+    
