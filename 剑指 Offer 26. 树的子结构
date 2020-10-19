@@ -1,0 +1,30 @@
+/**
+     * 功能描述: 剑指 Offer 26. 树的子结构
+     * @Author: zxc
+     * @Date: 2020/10/19 11:39
+     * @Descreption: 利用递归调用，（类似于深搜），分别对各个结点调用isEquals方法来判断
+     *               该结点以及相关向下的结点是否是和相应的相等
+     */
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        //如果轮到B树为Null了的话，就直接返回false
+        if (B==null) return false;
+        //如果A树不为空，因为会到A树的结点为空的情况，就跳过，直接返回false
+        if (A!=null){
+            //先进行判断根结点和目标树是否相等，然后判断左子树和右子树是否相等
+            return isEquals(A,B)||isSubStructure(A.left,B)||isSubStructure(A.right,B);
+        }
+        //如果A树为空就返回false
+        return false;
+    }
+
+    //进行相关判断的函数
+    boolean isEquals(TreeNode root,TreeNode target){
+        //如果目标树不为空
+        if (target!=null) {
+            //先判断该结点是否相等，
+            if (root==null||root.val != target.val) return false;
+            //然后判断之后的left和right的结点是否相等
+            return isEquals(root.left, target.left) && isEquals(root.right, target.right);
+        }
+        return true;
+    }
