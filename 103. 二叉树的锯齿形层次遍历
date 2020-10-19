@@ -1,0 +1,33 @@
+/**
+     * 功能描述: 103. 二叉树的锯齿形层次遍历
+     * @Author: zxc
+     * @Date: 2020/10/19 10:12
+     * @Descreption: 利用层次遍历，加上判断是否到偶数层，如果是偶数层则要将临时的list反转
+    */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        //要返回的结果
+        List<List<Integer>> re=new ArrayList<>();
+        //如果为空则直接返回
+        if (root==null) return re;
+        LinkedList<TreeNode> queue=new LinkedList<>();
+        int flag=0;
+        //添加根结点
+        queue.addLast(root);
+        while(!queue.isEmpty()){
+            List<Integer> tmp=new ArrayList<>();
+            int size=queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node=queue.remove(i);
+                tmp.add(node.val);
+                if (node.left!=null) queue.add(node.left);
+                if (node.right!=null) queue.add(node.right);
+            }
+            //这里利用flag标识，进行相应的判断
+            if (flag%2!=0) {
+                Collections.reverse(tmp);
+            }
+            re.add(tmp);
+            flag++;
+        }
+        return re;
+    }
