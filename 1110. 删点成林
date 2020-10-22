@@ -1,0 +1,41 @@
+/**
+     * 功能描述: 1110. 删点成林
+     * @Author: zxc
+     * @Date: 2020/10/22 10:33
+     * @Descreption:
+     */
+    //用来存储所有结果
+    List<TreeNode> re=new ArrayList<>();
+    public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        List<Integer> list=new ArrayList<>();
+        int size=to_delete.length;
+        for (int i = 0; i < size; i++) {
+            list.add(to_delete[i]);
+        }
+        if(!list.contains(root.val))re.add(root);
+        toDelete(root,list);
+        return re;
+    }
+    void toDelete(TreeNode root,List<Integer> to_delete){
+        if (root!=null){
+            toDelete(root.left,to_delete);
+            toDelete(root.right,to_delete);
+
+            if (root.left!=null&&to_delete.contains(root.left.val)){
+                root.left=null;
+            }
+            if (root.right!=null&&to_delete.contains(root.right.val)){
+                root.right=null;
+            }
+            if (to_delete.contains(root.val)){
+                if (root.left!=null){
+                    re.add(root.left);
+                    root.left=null;
+                }
+                if (root.right!=null){
+                    re.add(root.right);
+                    root.right=null;
+                }
+            }
+        }
+    }
