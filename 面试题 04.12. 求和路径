@@ -1,0 +1,27 @@
+/**
+     * 功能描述: 面试题 04.12. 求和路径
+     * @Author: zxc
+     * @Date: 2020/10/22 10:18
+     * @Descreption: 利用深搜，然后用相应的子树下进行深搜
+     */
+    //统计返回的结果
+    int re=0;
+    public int pathSum(TreeNode root, int sum) {
+        if (root==null) return re;
+        //进行深搜递归
+        isHave(sum,root);
+        pathSum(root.left,sum);
+        pathSum(root.right,sum);
+        return re;
+    }
+
+    //利用深搜对相应的结点进行递归
+    void isHave(int tmp,TreeNode root){
+        if (root!=null){
+            //剩下的值
+            int tmp2=tmp-root.val;
+            if (tmp2==0) re++;
+            isHave(tmp2,root.left);
+            isHave(tmp2,root.right);
+        }
+    }
