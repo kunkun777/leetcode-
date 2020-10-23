@@ -1,0 +1,35 @@
+/**
+     * 功能描述: 96. 不同的二叉搜索树
+     * @Author: zxc
+     * @Date: 2020/10/23 14:37
+     * @Descreption: 利用递归进行不同阶段的计算，但是有缺点，会对不同的数量重复计算
+     */
+    public int numTrees(int n) {
+        return order(n);
+    }
+    int order(int n){
+        if (n==1||n==0) return 1;
+        int sum=0;
+        for (int i = 1; i <= n; i++) {
+            sum+=order(n-i)*order(i-1);
+        }
+        return sum;
+    }
+    
+    
+    /**
+     * 功能描述: 96. 不同的二叉搜索树
+     * @Author: zxc
+     * @Date: 2020/10/23 14:37
+     * @Descreption: 利用递归进行不同阶段的计算，复杂度是N^2,它的有点类似递归的意味
+     */
+    public int numTrees(int n) {
+        int[] curs=new int[n];
+        curs[0]=1;curs[1]=1;
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                curs[i]+=curs[j-1]*curs[i-j];
+            }
+        }
+        return curs[n];
+    }
