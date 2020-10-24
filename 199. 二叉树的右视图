@@ -1,0 +1,25 @@
+
+    /**
+     * 功能描述: 199. 二叉树的右视图
+     * @Author: zxc
+     * @Date: 2020/10/23 14:37
+     * @Descreption: BFS,将最后一个结点的数列举出来
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        Queue<TreeNode> queue=new LinkedList<>();
+        List<Integer> re=new ArrayList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            int size=queue.size();
+            for (int i = 0; i < size; i++) {
+                //获取头结点
+                TreeNode node=queue.poll();
+                if (node.left!=null)queue.offer(node.left);
+                if (node.right !=null)queue.offer(node.right);
+                if (i==size-1){
+                    re.add(node.val);
+                }
+            }
+        }
+        return re;
+    }
