@@ -1,0 +1,25 @@
+    /**
+     * 功能描述: 114. 二叉树展开为链表
+     * @Author: zxc
+     * @Date: 2020/10/23 14:37
+     * @Descreption: 利用递归，对每个结点将其的右节点换为左子树，然后将其右节点接到左子树的右下结点
+     */
+    public void flatten(TreeNode root) {
+        if (root!=null){
+            order(root);
+            flatten(root.left);
+            flatten(root.right);
+        }
+    }
+
+    void order(TreeNode root){
+        if (root!=null){
+            TreeNode node=root.left;
+            while (node.right!=null){
+                node=node.right;
+            }
+            node.right=root.right;
+            root.right=root.left;
+            root.left=null;
+        }
+    }
