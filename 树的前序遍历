@@ -1,0 +1,43 @@
+  /**
+     * 功能描述: 树的前序遍历
+     * @Author: zxc
+     * @Date: 2020/10/25 13:28
+     */
+    List<Integer> re=new ArrayList<>();
+    Queue<TreeNode> queue=new LinkedList<>();
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if(root==null)return re;
+        queue.offer(root);
+        order();
+        return re;
+    }
+    
+    void order(){
+        while (!queue.isEmpty()){
+            TreeNode node=queue.poll();
+            re.add(node.val);
+            if (node.left!=null){
+                queue.offer(node.left);
+                order();
+            }
+            if (node.right!=null){
+                queue.offer(node.right);
+                order();
+            }
+        }
+    }
+    
+    
+       List<Integer> re=new ArrayList<>();
+    public List<Integer> preorderTraversal(TreeNode root) {
+        order(root);
+        return re;
+    }
+
+    void order(TreeNode root){
+        if (root!=null){
+            re.add(root.val);
+            order(root.left);
+            order(root.right);
+        }
+    }
