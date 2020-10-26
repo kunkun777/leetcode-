@@ -1,0 +1,23 @@
+/**
+     * 功能描述: 98. 验证二叉搜索树
+     * @Author: zxc
+     * @Date: 2020/10/26 8:18
+     * @Descreption: 利用中序遍历，然后判断是否是升序排列
+     */
+    List<Integer> re=new ArrayList<>();
+    public boolean isValidBST(TreeNode root) {
+        order(root);
+        for (int i = 0; i <re.size()-1; i++) {
+            if (re.get(i)>re.get(i+1))return false;
+        }
+        return true;
+    }
+
+    void order(TreeNode root){
+        if (root!=null){
+            order(root.left);
+            re.add(root.val);
+            order(root.right);
+        }
+    }
+
