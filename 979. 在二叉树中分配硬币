@@ -1,0 +1,18 @@
+/**
+     * 功能描述: 979. 在二叉树中分配硬币
+     * @Author: zxc
+     * @Date: 2020/10/27 8:39
+     */
+    int count=0;
+    public int distributeCoins(TreeNode root) {
+        order(root);
+        return count;
+    }
+
+    int order(TreeNode root){
+        if (root==null) return 0;
+        int left=order(root.left);
+        int right=order(root.right);
+        count+=Math.abs(left)+Math.abs(right);
+        return root.val+left+right-1;
+    }
