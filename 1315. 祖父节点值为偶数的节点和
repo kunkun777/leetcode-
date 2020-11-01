@@ -1,0 +1,35 @@
+    /**
+     * 功能描述: 1315. 祖父节点值为偶数的节点和
+     * @Author: zxc
+     * @Date: 2020/11/1 14:38
+     * @Descreption: 层次遍历每个节点并判断该节点是否为偶数，是的话，就将其子节点加入结果
+     */
+    private int re;
+    public int sumEvenGrandparent(TreeNode root) {
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            TreeNode node=queue.poll();
+            subSum(node);
+            if (node.left!=null)queue.offer(node.left);
+            if (node.right!=null)queue.offer(node.right);
+        }
+        return re;
+    }
+
+    void subSum(TreeNode root){
+        if (root!=null&&root.val%2==0){
+            getSub(root);
+        }
+    }
+
+    void getSub(TreeNode root){
+        if(root.left!=null){
+            if (root.left.left!=null)re+=root.left.left.val;
+            if (root.left.right!=null)re+=root.left.right.val;
+        }
+        if(root.right!=null){
+            if (root.right.left!=null)re+=root.right.left.val;
+            if (root.right.right!=null)re+=root.right.right.val;
+        }
+    }
