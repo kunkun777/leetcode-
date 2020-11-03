@@ -1,0 +1,26 @@
+
+    private TreeNode re;
+    private TreeNode t1,t2;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        t1=p;
+        t2=q;
+        order(root);
+        return re;
+    }
+    boolean order(TreeNode root){
+        if (root!=null){
+            if (isHave(root,t1)&&isHave(root,t2)) {
+                re=root;
+                return true;
+            }
+            if (order(root.left));
+            else order(root.right);
+        }
+        return false;
+    }
+    boolean isHave(TreeNode root,TreeNode target){
+        if (root!=null){
+            return root.val==target.val||isHave(root.left,target)||isHave(root.right,target);
+        }
+        return false;
+    }
