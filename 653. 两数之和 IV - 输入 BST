@@ -1,0 +1,24 @@
+   TreeNode re;
+    public boolean findTarget(TreeNode root, int k) {
+        re=root;
+        return cur(re,k);
+    }
+    
+    boolean cur(TreeNode node,int k){
+        if (node!=null){
+            return (k!=node.val*2&&order(re,k-node.val))||cur(node.left,k)||cur(node.right,k);
+        }
+        return false;
+    }
+    boolean order(TreeNode root,int k){
+        if (root!=null){
+            if ((root.left!=null)&&(root.left.val==k)){
+                return true;
+            }
+            if (root.right!=null&&root.right.val==k){
+                return true;
+            }
+            return order(root.left,k)||order(root.right,k);
+        }
+        return false;
+    }
