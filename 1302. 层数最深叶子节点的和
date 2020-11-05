@@ -1,0 +1,25 @@
+/**
+     * 功能描述: 1302. 层数最深叶子节点的和
+     * @Author: zxc
+     * @Date: 2020/11/4 8:09
+     * @Descreption: 深度遍历并记录结点得层次
+     */
+    int flag=Integer.MIN_VALUE;
+    int sum=0;
+    public int deepestLeavesSum(TreeNode root) {
+        order(root,0);
+        return sum;
+    }
+
+    void order(TreeNode root,int num){
+        if (root!=null){
+            if (num>flag){
+                flag=num;
+                sum=root.val;
+            }else if (num==flag){
+                sum+=root.val;
+            }
+            order(root.left,num+1);
+            order(root.right,num+1);
+        }
+    }
