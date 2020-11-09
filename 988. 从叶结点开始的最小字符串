@@ -1,0 +1,36 @@
+/**
+     * 功能描述: 988. 从叶结点开始的最小字符串
+     * @Author: zxc
+     * @Date: 2020/11/9 8:36
+     * @Descreption: 暴力解法，列举出所有的可能性，并进行相应的比较
+     */
+    private String re="~";
+    private int min=Integer.MAX_VALUE;
+    public String smallestFromLeaf(TreeNode root) {
+        order(root,"",0);
+        return re;
+    }
+
+    void order(TreeNode root, String tmp, int deep) {
+        if (root != null) {
+
+            if (root.left == null && root.right == null) {
+                min=Math.min(deep,min);
+                re = getMin(re, (char) (root.val + 97) + tmp);
+            }
+
+            order(root.left, (char) (root.val + 97) + tmp, deep + 1);
+            order(root.right, (char) (root.val + 97) + tmp, deep + 1);
+        }
+    }
+
+    String getMin(String A,String B){
+        for (int i = 0; i < Math.min(A.length(),B.length()); i++) {
+            char a=A.charAt(i);
+            char b=B.charAt(i);
+            if (a==b) continue;
+            else if (a<b) return A;
+            else return B;
+        }
+        return A.length()>B.length()?B:A;
+    }
