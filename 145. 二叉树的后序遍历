@@ -1,0 +1,28 @@
+    /**
+     * 功能描述: 145. 二叉树的后序遍历
+     * @Author: zxc
+     * @Date: 2020/11/10 9:04
+     * @Descreption:
+     */
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> re=new ArrayList<>();
+        if (root==null) return re;
+        Stack<TreeNode> stack=new Stack<>();
+        TreeNode pre=null;
+        while (root!=null||!stack.isEmpty()){
+            while (root!=null){
+                stack.push(root);
+                root=root.left;
+            }
+            root=stack.peek();
+            if(root.right==null || root.right==pre){ //若右节点为空 或右节点访问过
+                re.add(root.val); //此时可以访问根结点啦
+                pre = root;
+                stack.pop();
+                root = null; //此时下一轮循环不要将左子树压栈，直接判断栈顶元素
+            }else{
+                root = root.right; //先不出栈 把它右节点入栈
+            }
+        }
+        return re;
+    }
