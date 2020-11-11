@@ -1,0 +1,28 @@
+/**
+     * 功能描述: 113. 路径总和 II
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 将每个节点分别入队然后出队，到叶子节点进行判断
+    */
+    List<List<Integer>> re=new ArrayList<>();
+    private int target;
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        target=sum;
+        order(root,new ArrayList<>(),0);
+        return re;
+    }
+    void order(TreeNode root,List<Integer> tmp,int sum){
+        if (root==null) return;
+        if (root.left==null&&root.right==null){
+            if (sum+root.val==target){
+                List<Integer> nList=new ArrayList<>(tmp);
+                nList.add(root.val);
+                re.add(nList);
+            }
+            return;
+        }
+        tmp.add(root.val);
+        order(root.left,tmp,sum+root.val);
+        order(root.right,tmp,sum+root.val);
+        tmp.remove(tmp.size()-1);
+    }
