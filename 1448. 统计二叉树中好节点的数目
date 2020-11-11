@@ -1,0 +1,21 @@
+   /**
+     * 功能描述: 1448. 统计二叉树中好节点的数目
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: DFS，判断每个节点的情况
+    */
+    int sum=0;
+    public int goodNodes(TreeNode root) {
+        order(root,root.val);
+        return sum;
+    }
+    void order(TreeNode root,int cur){
+        if (root!=null){
+            if (root.val>=cur) {
+                sum++;
+                cur=root.val;
+            }
+                order(root.left, cur);
+                order(root.right, cur);
+        }
+    }
