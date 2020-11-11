@@ -1,0 +1,21 @@
+   /**
+     * 功能描述: 1008. 前序遍历构造二叉搜索树
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 利用层次的迭代，来确定相应的范围，要注意cur和end的合理数值控制
+    */
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return order(preorder,0,preorder.length);
+    }
+
+    TreeNode order(int[] preorder,int cur,int end){
+        if (cur<0||cur>preorder.length-1||(end==cur)) return null;
+        TreeNode root=new TreeNode(preorder[cur]);
+        int rBegin=cur;
+        while (rBegin<end&&preorder[rBegin]<=preorder[cur]){
+            rBegin++;
+        }
+        root.left=cur+1!=rBegin?order(preorder,cur+1,rBegin):null;
+        root.right=order(preorder,rBegin,end);
+        return root;
+    }
