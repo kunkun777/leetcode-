@@ -1,0 +1,16 @@
+/**
+     * 功能描述: 538. 把二叉搜索树转换为累加树
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 反向中序遍历即可
+     */
+    int cur=0;
+    public TreeNode convertBST(TreeNode root) {
+        if (root!=null){
+            convertBST(root.right);
+            cur+=root.val;
+            root.val=cur;
+            convertBST(root.left);
+        }
+        return root;
+    }
