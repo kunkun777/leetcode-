@@ -1,0 +1,26 @@
+  /**
+     * 功能描述: 687. 最长同值路径
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 利用2次的递归，调用
+    */
+    int max=Integer.MIN_VALUE;
+    public int longestUnivaluePath(TreeNode root) {
+        if(root==null) return 0;
+        order(root);
+        return max;
+    }
+    void order(TreeNode root){
+        if (root!=null){
+            int tmp;
+            if ((tmp=(getCur(root.left,0,root.val)+getCur(root.right,0,root.val))+1)>max){
+                max=tmp;
+            }
+            order(root.left);
+            order(root.right);
+        }
+    }
+    int getCur(TreeNode root,int cur,int val){
+        if(root==null||root.val!=val) return cur;
+        return Math.max(getCur(root.left,cur+1,val),getCur(root.right,cur+1,val));
+    }
