@@ -1,0 +1,22 @@
+
+    public List<Integer> pathInZigZagTree(int label) {
+        int dept = (int) (Math.log(label) / Math.log(2)) + 1;
+        List<Integer> re = new ArrayList<>();
+        int cur;
+        if (dept % 2 == 0) {
+            cur = (int) Math.pow(2, dept) - label;
+        } else {
+            cur = label - (int) Math.pow(2, dept - 1)+1;
+        }
+        int size=dept;
+        for (int i = 0; i < size; i++,dept--) {
+            if (dept % 2 == 0){
+                re.add((int) (Math.pow(2,dept)-cur));
+            }else {
+                re.add((int) (Math.pow(2,dept-1)+cur-1));
+            }
+            cur= (int) Math.ceil((double)cur/2);
+        }
+        Collections.reverse(re);
+        return re;
+    }
