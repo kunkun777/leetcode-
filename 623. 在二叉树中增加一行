@@ -1,0 +1,33 @@
+    /**
+     * 功能描述: 623. 在二叉树中增加一行
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 根据层级进行相应的操作，DFS
+     */
+    int val,dp;
+    public TreeNode addOneRow(TreeNode root, int v, int d) {
+        val=v;
+        dp=d-1;
+        if (d==1){
+            TreeNode re=new TreeNode(v);
+            re.left=root;
+            return re;
+        }
+        order(root,1);
+        return root;
+    }
+
+    void order(TreeNode root,int dept){
+        if (root==null||dept>dp) return;
+        if (dept<dp) {
+            order(root.left,dept+1);
+            order(root.right,dept+1);
+        }else {
+            TreeNode newL=new TreeNode(val);
+            newL.left=root.left;
+            TreeNode newR=new TreeNode(val);
+            newR.right=root.right;
+            root.left=newL;
+            root.right=newR;
+        }
+    }
