@@ -1,0 +1,23 @@
+  /**
+     * 功能描述: 513. 找树左下角的值
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: DFS，记录层级，并先去遍历左子节点
+    */
+    int maxDept=Integer.MIN_VALUE;
+    int re;
+    public int findBottomLeftValue(TreeNode root) {
+        re=root.val;
+        order(root,0);
+        return re;
+    }
+    void order(TreeNode root,int cur){
+        if (root!=null){
+            if (cur>maxDept){
+                re=root.val;
+                maxDept=cur;
+            }
+            order(root.left,cur+1);
+            order(root.right,cur+1);
+        }
+    }
