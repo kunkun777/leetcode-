@@ -1,0 +1,16 @@
+    /**
+     * 功能描述: 1325. 删除给定值的叶子节点
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 先进行子节点的操作，也就是先进行后序遍历即可
+     */
+    public TreeNode removeLeafNodes(TreeNode root, int target) {
+        if (root!=null){
+            root.left=removeLeafNodes(root.left,target);
+            root.right=removeLeafNodes(root.right,target);
+            if (root.val==target&&root.left==null&&root.right==null){
+                root=null;
+            }
+        }
+        return root;
+    }
