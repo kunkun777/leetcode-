@@ -1,0 +1,20 @@
+  /**
+     * 功能描述: 面试题 04.06. 后继者
+     *
+     * @Author: zxc
+     * @Date: 2020/11/11 8:55
+     * @Descreption: 其实也就是深度遍历，然后寻找该条路径
+     */
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        TreeNode re=root;
+        TreeNode tmp=root;
+        while (tmp!=null){
+            if (tmp.val<=p.val){
+                tmp=tmp.right;
+            }else {
+                re=tmp;
+                tmp=tmp.left;
+            }
+        }
+        return re.val<=p.val ? null : re;
+    }
